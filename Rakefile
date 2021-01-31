@@ -1,6 +1,7 @@
-REGION = ENV['REGION']
-AREA = ENV['AREA']
-MBTILES = "src/tiles.mbtiles"
+#REGION = 'australia-oceania'
+REGION = 'africa'
+#AREA = 'new-zealand'
+AREA = 'kenya'
 
 namespace :inet do
   desc 'install extra software for naru'
@@ -32,8 +33,8 @@ end
 
 desc 'build tiles from source data'
 task :tiles do
-  sh "osmium export --config osmium-export-config.json --index-type=sparse_file_array --output-format=geojsonseq --output=- src/#{AREA}-latest.osm.pbf | node filter.js | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=15 --base-zoom=15 --hilbert --output=#{MBTILES}"
-  sh "tile-join --force --no-tile-compression --output-to-directory=docs/zxy --no-tile-size-limit #{MBTILES}"
+  sh "osmium export --config osmium-export-config.json --index-type=sparse_file_array --output-format=geojsonseq --output=- src/#{AREA}-latest.osm.pbf | node filter.js | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=15 --base-zoom=15 --hilbert --output=tiles.mbtiles"
+  sh "tile-join --force --no-tile-compression --output-to-directory=docs/zxy --no-tile-size-limit tiles.mbtiles"
 end
 
 desc 'build style.json from HOCON descriptions'

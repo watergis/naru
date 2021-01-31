@@ -1,9 +1,7 @@
 docs/zxy
 mapbox-gl-js
-docs/style.json
-*.pbf
-*.mbtiles
-.DS_Store
+tiles.mbtiles
+src/*.pbf
 
 # Logs
 logs
