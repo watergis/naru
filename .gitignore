@@ -4,6 +4,7 @@ docs/style.json
 *.pbf
 *.mbtiles
 .DS_Store
+*.pem
 
 # Logs
 logs

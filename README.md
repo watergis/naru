@@ -49,6 +49,7 @@ Now it is OK to disconnect Raspberry Pi.
 - [@mapbox/vtshaver](https://github.com/mapbox/vtshaver)
 ### Ruby
 - [mdless](https://github.com/ttscoff/mdless)
+- [launchy](https://rubygems.org/gems/launchy)
 ### policy
 the list shall be minimized, moving items to `equinox`.
 

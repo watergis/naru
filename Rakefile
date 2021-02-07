@@ -1,7 +1,7 @@
 REGION = ENV['REGION']
 AREA = ENV['AREA']
 MBTILES = "src/tiles.mbtiles"
-SITE_ROOT = ENV['SITE_ROOT'] || 'http://localhost:9966'
+SITE_ROOT = ENV['SITE_ROOT'] || 'https://localhost:9966'
 
 namespace :inet do
   desc 'install extra software for naru'
@@ -51,7 +51,9 @@ end
 
 desc 'host the site'
 task :host do
-  sh "budo -d docs --cors"
+  sh "mkcert -install"
+  sh "mkcert localhost"
+  sh "budo -d docs --host localhost --cors --ssl --cert=localhost.pem --key=localhost-key.pem"
 end
 
 desc 'TODO: build JavaScript code using rollup'
@@ -62,3 +64,10 @@ desc 'TODO: run vt-optimizer'
 task :optimizer do
 end
 
+require 'launchy'
+
+desc 'TODO: run maputnik'
+task :maputnik do
+  url = "https://maputnik.github.io/editor?style=#{SITE_ROOT}/style.json"
+  Launchy.open url
+end
