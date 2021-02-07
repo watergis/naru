@@ -50,6 +50,8 @@ Now it is OK to disconnect Raspberry Pi.
 ### Ruby
 - [mdless](https://github.com/ttscoff/mdless)
 - [launchy](https://rubygems.org/gems/launchy)
+### SSL for localhsot
+- [mkcert](https://github.com/FiloSottile/mkcert)
 ### policy
 the list shall be minimized, moving items to `equinox`.
 
