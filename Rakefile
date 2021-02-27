@@ -72,7 +72,7 @@ end
 
 desc 'host the site'
 task :host do
-  sh "budo -d docs --host localhost --port 9966 --cors"
+  sh "budo -d docs --cors"
 end
 
 desc 'build JavaScript code using rollup'
