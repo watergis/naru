@@ -3,7 +3,7 @@ require 'dotenv/load' #load environmental variable from .env
 REGION = ENV['REGION']
 AREA = ENV['AREA']
 MBTILES = "src/tiles.mbtiles"
-SITE_ROOT = ENV['SITE_ROOT'] || 'https://localhost:9966'
+SITE_ROOT = ENV['SITE_ROOT'] || 'http://localhost:9966'
 
 namespace :inet do
   desc 'install extra software for naru'
@@ -72,9 +72,7 @@ end
 
 desc 'host the site'
 task :host do
-  sh "mkcert -install"
-  sh "mkcert localhost"
-  sh "budo -d docs --host localhost --cors --ssl --cert=localhost.pem --key=localhost-key.pem"
+  sh "budo -d docs --host localhost --port 9966 --cors"
 end
 
 desc 'build JavaScript code using rollup'
@@ -87,10 +85,22 @@ task :optimizer do
   sh "yarn run optimiser -m #{MBTILES}"
 end
 
-require 'launchy'
+namespace :maputnik do
 
-desc 'TODO: run maputnik'
-task :maputnik do
-  url = "https://maputnik.github.io/editor?style=#{SITE_ROOT}/style.json"
-  Launchy.open url
+  desc 'run maputnik editor server (it requires Docker)'
+  task :start do
+    sh "docker run -it --rm -p 8888:8888 --detach --name manutnik maputnik/editor"
+  end
+
+  task :stop do
+    sh "docker kill manutnik"
+  end
+
+  desc 'run maputnik editor with style.json'
+  task :open do
+    require 'launchy'
+    url = "http://localhost:8888?style=#{SITE_ROOT}/style.json"
+    Launchy.open url
+  end
+
 end

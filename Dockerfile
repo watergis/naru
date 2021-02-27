@@ -45,11 +45,6 @@ RUN apt-get update&&\
   zip\
   zlib1g-dev
 
-RUN apt-get install -y \
-  libnss3-tools \
-  linuxbrew-wrapper && \
-  brew install mkcert
-
 RUN git clone https://github.com/mapbox/tippecanoe &&\
   cd tippecanoe; make -j3 LDFLAGS="-latomic"; make install; cd .. &&\
   rm -rf tippecanoe

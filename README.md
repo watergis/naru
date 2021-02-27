@@ -40,6 +40,9 @@ rake inet:fonts
 rake inet:sprite
 rake optimizer # analyze tiles.mbtiles
 rake shaver
+rake maputnik:start # launch maputnik editor on localhost:8888
+rake maputnik:open # open style.json by maputnik editor
+rake maputnik:stop # stop mapunik editor server
 ```
 
 ## Shutdown Raspberry Pi
@@ -56,8 +59,6 @@ Now it is OK to disconnect Raspberry Pi.
 ### Ruby
 - [mdless](https://github.com/ttscoff/mdless)
 - [launchy](https://rubygems.org/gems/launchy)
-### SSL for localhsot
-- [mkcert](https://github.com/FiloSottile/mkcert)
 - [dotenv](https://github.com/bkeepers/dotenv)
 ### policy
 the list shall be minimized, moving items to `equinox`.
@@ -87,6 +88,43 @@ docker build . --tag unvt/naru
 cp .env.example .env
 vi .env # specify your target REGION and AREA on .env file
 docker-compose up
+```
+
+## Edit style.json on [maputnik editor](https://github.com/maputnik/editor)
+
+### A. Use docker-compose
+
+```
+docker-compose up
+```
+
+Then, open the below URL in your browser.
+```
+http://localhost:8888?style=http://localhost:9966/style.json
+```
+
+### B. Manually launch maputnik editor locally
+
+1. launch budo to host tiles and style.json
+```zsh
+rake host 
+```
+Before run `rake host`, make sure all of components (tiles, style.json, sprite, glyphs, js) are generated under `docs` folder.
+
+2. Use different terminal to launch maputnik editor server with port 8888
+```zsh
+rake maputnik:start
+```
+It will launch `maputnik editor` by using Docker, so it can't run without installing Docker on the machine.
+
+3. Open editor with style.json
+```zsh
+rake maputnik:open
+```
+
+4. Make sure stopping maputnik editor server after editing style.json
+```zsh
+rake maputnik:stop
 ```
 
 # About the name

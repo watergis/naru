@@ -13,3 +13,8 @@ services:
     env_file: .env
     ports:
       - "9966:9966"
+
+  maputnik:
+    image: maputnik/editor
+    ports:
+      - "8888:8888"
